@@ -3,7 +3,7 @@ import psycopg2
 # Database connection settings
 DB_NAME = "webscraping_db"
 DB_USER = "postgres"
-DB_PASSWORD = "5121"
+DB_PASSWORD = "1234"
 DB_HOST = "localhost"
 DB_PORT = "5432"
 # Function to connect to PostgreSQL

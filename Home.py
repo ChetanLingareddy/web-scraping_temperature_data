@@ -1,3 +1,4 @@
+from datetime import datetime
 import requests
 import selectorlib
 import time
@@ -25,14 +26,17 @@ def store_to_db(extracted):
     conn = connect_db()
     if conn:
         cur = conn.cursor()
+        extracted_time = datetime.now ().strftime ( "%Y-%m-%d %H:%M:%S" )
         cur.execute("""
-            INSERT INTO scraped_data (temperature) 
-            VALUES (%s);
-        """, (extracted,))
+            INSERT INTO scraped_data (temperature,timestamp) 
+            VALUES (%s,%s);
+        """, (extracted,extracted_time))
         conn.commit()
         cur.close()
         conn.close()
         print(f"Data saved: {extracted}")
+        with open ( "data.txt", "a" ) as file :
+            file.write ( f"{extracted_time},{extracted}\n" )
 
 # Main Execution
 if __name__ == "__main__":
